@@ -1,11 +1,11 @@
 export default function Home() {
   return (
-    <div>
+    <div style={{ width: "100%", height: "100vh" }}>
       <iframe
         src="/index.html"
         style={{
           width: "100%",
-          height: "100vh",
+          height: "100%",
           border: "none",
           display: "block",
         }}

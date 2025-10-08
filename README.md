@@ -1,5 +1,7 @@
 # My Portfolio
 
+> CI: Every pull request to `main`/`Develop` runs formatting, lint, and build checks via GitHub Actions. Unformatted code fails the CI.
+
 This is my personal portfolio site, built with Next.js and deployed on GitHub Pages.
 
 ## Live Site

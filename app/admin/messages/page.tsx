@@ -1,50 +1,50 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { RefreshCw, Mail, MailOpen, Clock, User, AtSign } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { RefreshCw, Mail, MailOpen, Clock, User, AtSign } from "lucide-react";
 
 interface ContactMessage {
-  id: string
-  name: string
-  email: string
-  message: string
-  timestamp: string
-  read: boolean
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  timestamp: string;
+  read: boolean;
 }
 
 interface MessagesResponse {
-  messages: ContactMessage[]
-  total: number
-  unread: number
+  messages: ContactMessage[];
+  total: number;
+  unread: number;
 }
 
 export default function MessagesPage() {
-  const [messages, setMessages] = useState<ContactMessage[]>([])
-  const [loading, setLoading] = useState(true)
-  const [unreadCount, setUnreadCount] = useState(0)
-  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null)
+  const [messages, setMessages] = useState<ContactMessage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
 
   const fetchMessages = async () => {
     try {
-      setLoading(true)
-      const response = await fetch("/api/contact")
-      const data: MessagesResponse = await response.json()
+      setLoading(true);
+      const response = await fetch("/api/contact");
+      const data: MessagesResponse = await response.json();
 
       if (response.ok) {
-        setMessages(data.messages)
-        setUnreadCount(data.unread)
+        setMessages(data.messages);
+        setUnreadCount(data.unread);
       }
     } catch (error) {
-      console.error("Failed to fetch messages:", error)
+      console.error("Failed to fetch messages:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const markAsRead = async (messageId: string) => {
     try {
@@ -52,16 +52,18 @@ export default function MessagesPage() {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ read: true }),
-      })
+      });
 
       if (response.ok) {
-        setMessages((prev) => prev.map((msg) => (msg.id === messageId ? { ...msg, read: true } : msg)))
-        setUnreadCount((prev) => Math.max(0, prev - 1))
+        setMessages((prev) =>
+          prev.map((msg) => (msg.id === messageId ? { ...msg, read: true } : msg)),
+        );
+        setUnreadCount((prev) => Math.max(0, prev - 1));
       }
     } catch (error) {
-      console.error("Failed to mark message as read:", error)
+      console.error("Failed to mark message as read:", error);
     }
-  }
+  };
 
   const formatDate = (timestamp: string) => {
     return new Date(timestamp).toLocaleString("en-US", {
@@ -70,21 +72,21 @@ export default function MessagesPage() {
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    })
-  }
+    });
+  };
 
   const handleMessageClick = (message: ContactMessage) => {
-    setSelectedMessage(message)
+    setSelectedMessage(message);
     if (!message.read) {
-      markAsRead(message.id)
+      markAsRead(message.id);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchMessages()
-    const interval = setInterval(fetchMessages, 30000)
-    return () => clearInterval(interval)
-  }, [])
+    fetchMessages();
+    const interval = setInterval(fetchMessages, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -93,7 +95,9 @@ export default function MessagesPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Contact Messages</h1>
-              <p className="text-gray-600 mt-2">Manage and respond to messages from your portfolio</p>
+              <p className="text-gray-600 mt-2">
+                Manage and respond to messages from your portfolio
+              </p>
             </div>
             <div className="flex items-center gap-4">
               <Badge variant="secondary" className="text-sm">
@@ -149,7 +153,9 @@ export default function MessagesPage() {
                                 </span>
                               </div>
                               <p className="text-sm text-gray-600 truncate">{message.email}</p>
-                              <p className="text-sm text-gray-500 mt-1 line-clamp-2">{message.message}</p>
+                              <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                                {message.message}
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center gap-1 mt-2 text-xs text-gray-400">
@@ -185,7 +191,9 @@ export default function MessagesPage() {
                         {selectedMessage.email}
                       </CardDescription>
                     </div>
-                    <div className="text-sm text-gray-500">{formatDate(selectedMessage.timestamp)}</div>
+                    <div className="text-sm text-gray-500">
+                      {formatDate(selectedMessage.timestamp)}
+                    </div>
                   </div>
                 </CardHeader>
                 <Separator />
@@ -193,14 +201,18 @@ export default function MessagesPage() {
                   <div className="prose max-w-none">
                     <h4 className="text-lg font-semibold mb-4">Message:</h4>
                     <div className="bg-gray-50 p-4 rounded-lg border">
-                      <p className="whitespace-pre-wrap text-gray-800 leading-relaxed">{selectedMessage.message}</p>
+                      <p className="whitespace-pre-wrap text-gray-800 leading-relaxed">
+                        {selectedMessage.message}
+                      </p>
                     </div>
                   </div>
 
                   <div className="mt-6 flex gap-3">
                     <Button
                       onClick={() =>
-                        window.open(`mailto:${selectedMessage.email}?subject=Re: Your message from portfolio`)
+                        window.open(
+                          `mailto:${selectedMessage.email}?subject=Re: Your message from portfolio`,
+                        )
                       }
                       className="flex-1"
                     >
@@ -209,8 +221,8 @@ export default function MessagesPage() {
                     <Button
                       variant="outline"
                       onClick={() => {
-                        navigator.clipboard.writeText(selectedMessage.email)
-                        alert("Email copied to clipboard!")
+                        navigator.clipboard.writeText(selectedMessage.email);
+                        alert("Email copied to clipboard!");
                       }}
                     >
                       Copy Email
@@ -233,5 +245,5 @@ export default function MessagesPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

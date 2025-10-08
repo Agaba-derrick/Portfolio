@@ -8,8 +8,6 @@ This is my personal portfolio site, built with Next.js and deployed on GitHub Pa
 
 Your portfolio is live at: [https://agaba-derrick.github.io/Portfolio/](https://agaba-derrick.github.io/Portfolio/)
 
-_Last deployed by @Agaba-derrick 4 minutes ago_
-
 ## Build & Deployment
 
 - The project is built using [Next.js](https://nextjs.org/).

@@ -1,24 +1,21 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Agaba Derrick Junior | Digital Health Software Developer",
-  description: "Portfolio of Agaba Derrick Junior - Open Source Evangelist and Digital Health Software Developer",
-    generator: 'v0.dev'
-}
+  description:
+    "Portfolio of Agaba Derrick Junior - Open Source Evangelist and Digital Health Software Developer",
+  generator: "v0.dev",
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>{children}</body>
     </html>
-  )
+  );
 }

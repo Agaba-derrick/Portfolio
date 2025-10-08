@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build && next export",
+    "prebuild": "[ -d app/api ] && mv app/api app/_api || true",
+    "build": "next build",
+    "postbuild": "[ -d app/_api ] && mv app/_api app/api || true",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "dev": "next dev",

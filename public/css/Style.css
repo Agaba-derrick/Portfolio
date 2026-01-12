@@ -447,8 +447,9 @@ h4 {
 }
 
 .image-container:hover {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  border-color: rgba(26, 115, 232, 0.3);
 }
 
 .image-container:hover::before {
@@ -463,12 +464,6 @@ h4 {
   border-radius: calc(var(--border-radius) - 3px);
   object-fit: cover;
   aspect-ratio: 4 / 5;
-}
-
-.image-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-  border-color: rgba(26, 115, 232, 0.3);
 }
 
 .image-container:hover img {
